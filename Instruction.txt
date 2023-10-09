@@ -1,0 +1,9 @@
+1. Check Net Framework and NuGet pacakges compatibility
+2. Create table in the database
+3. Add service reference for login service 
+	Service Reference -> Add Service Reference
+4. Edit connection string di Controller-> WebController.cs
+	 DAL = new Models.IKSDAL("Server=SERVERIP;Database=DATABASENAME;User Id=DBUSER;Password=DBPW;");
+5. Build Solution & Build Project
+6. Publish Web
+	

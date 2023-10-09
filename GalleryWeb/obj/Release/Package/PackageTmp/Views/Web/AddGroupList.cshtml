@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewBag.Title = "AddGroupList";
+}
+@{
+    var baseUrl = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+    var folder = "/eGalery";
+    baseUrl = baseUrl + folder;
+}
+<h2>AddGroupList</h2>
+<!-- add form -->
+@model GalleryWeb.Models.UserAdded
+@using (Html.BeginForm("AddGroupListProcess", "Web", FormMethod.Post))
+{
+    
+    <br />
+    <br />
+    <div>
+        <label for="GroupName">Group Name</label>
+        <input id="GroupName" class="form-control" name="GroupName" placeholder="Group Name">
+        @*@Html.LabelFor(model => model.GroupID)
+        @Html.TextBoxFor(model => model.GroupID)
+        @Html.ValidationMessageFor(model => model.GroupID)*@
+        
+    </div>
+    <div>
+        <br />
+        <input type="submit" value="Submit" class="btn btn-primary" />
+    </div>
+}
+
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+@if ( ViewBag.Success == true )
+{
+    <p id="validationResult" class = "text-primary">Group was successfully added to the group list</p>
+}
+else
+{
+    <p id="validationResult"></p>
+}
+
+<!-- end add form -->
+
+<script>
+    window.onload = function () {
+        // Get the text content of the <p> element
+        var statusText = document.getElementById('validationResult').textContent;
+
+        // Check if the text is 'Success'
+        if (statusText.trim() === 'User was successfully added to the group') {
+            window.close(); // Close the window if it's 'Success'
+        }
+    };
+
+    $(document).ready(function () {
+        $("#navbarTop").hide();
+        $('#GroupID').select2();
+        // Load JSON data from a URL
+        $.ajax({
+            url: '@Url.Content("~/")Web/combo_grouplist',
+            dataType: 'json',
+            success: function (data) {
+                // Populate the Select2 dropdown with data
+                $('#GroupID').empty(); // Clear existing options
+                $.each(data, function (index, item) {
+                    // Append option elements to the select
+                    $('#GroupID').append('<option value="' + item.value + '">' + item.text + '</option>');
+                });
+                // Trigger the change event to update Select2
+                $('#GroupID').trigger('change');
+            }
+        });
+        //$('#UserID').select2();
+
+        @*$('#UserID').select2({
+            ajax: {
+                url: '@baseUrl/Web/combo_userlist',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        search: params.term
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            placeholder: 'Search user...',
+            minimumInputLength: 2
+        });*@
+
+        $('#UserID').select2({
+            ajax: {
+              url: '@Url.Content("~/")Web/combo_userlist', // Replace with your API URL
+              dataType: 'json',
+              delay: 250, // Delay in milliseconds before making the request after user input
+              data: function(params) {
+                return {
+                  search: params.term, // The search term entered by the user
+                };
+              },
+              results: function (data, page) {
+                  var array = data;
+                  var i = 0;
+                  while (i < array.length) {
+                      array[i]["id"] = array[i]["value"];
+                          array[i]["text"] = array[i]["text"];
+                              array[i]["value"];
+                              array[i]["text"];
+                              i++;
+                      }
+                      return {results: array};
+              },
+              processResults: function (data) {
+                  //console.log(results);
+                  var array = data;
+                  var i = 0;
+                  while (i < array.length) {
+                      array[i]["id"] = array[i]["value"];
+                      array[i]["text"] = array[i]["text"];
+                      array[i]["value"];
+                      array[i]["text"];
+                      i++;
+                  }
+                  return {
+
+                      results: array
+
+
+                    // Adjust this according to your API response structure
+                };
+              },
+              cache: true // Cache the results to improve performance
+            },
+            placeholder: 'Search for data...',
+            minimumInputLength: 2 // Minimum number of characters before making the request
+          });
+    });
+</script>
+
+

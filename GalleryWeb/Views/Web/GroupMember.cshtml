@@ -1,0 +1,110 @@
+﻿
+
+@model List<GalleryWeb.Models.GroupMember>
+@{
+    var baseUrl = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+    var folder = "/eGalery";
+    baseUrl = baseUrl + folder;
+}
+<!-- HTML markup to display the data -->
+@*<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+    @foreach (var group in Model)
+    {
+        <tr>
+            <td>@group.GroupID</td>
+            <td>@group.GroupName</td>
+        </tr>
+    }
+</table>*@
+
+<h2>Group Member </h2>
+<!-- Create a table with two columns -->
+@if (ViewBag.Success == true)
+{
+    <p class="text-primary">User was successfully added to the group</p>
+}
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-12">
+
+        <a href="@Url.Content("~/Web/AddGroupMember")" class="btn btn-primary" onclick="openNewWindow(event)"><i class="fas fa-user-plus"></i> Add New Member</a>
+        <br />
+        <br />
+        <table id="myTable" class="display">
+            <colgroup>
+                <col style="width: 100px;"> <!-- Set the width of the first column -->
+                <!-- Add more col elements for other columns as needed -->
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>GroupID</th>
+                    <th>GroupName</th>
+                    <th>UserID</th>
+                    <th>FullName</th>
+                    @*<th>ActiveFlag</th>*@
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Add more rows as needed -->
+                @foreach (var groupmember in Model)
+                {
+                    <tr>
+                        <td>@groupmember.GroupID</td>
+                        <td>@groupmember.GroupName</td>
+                        <td>@groupmember.UserID</td>
+                        <td>@groupmember.FullName</td>
+                        @*<td>@groupmember.ActiveFlag</td>*@
+                        <td><a href="@Url.Content("~/")Web/DeleteGroupMember?id=@groupmember.UserID&group=@groupmember.GroupID" class="btn btn-danger confirmationLink"><i class="fas fa-trash"></i> Delete</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+$(document).ready(function () {
+    $('#myTable').DataTable();
+    $('#nav-groupmember').addClass('active');
+
+    var $confirmationLink = $('.confirmationLink');
+
+    // Add a click event handler to the link
+    $confirmationLink.click(function (event) {
+        // Prevent the default link behavior (navigating to a new page)
+        event.preventDefault();
+
+        // Display a confirmation dialog
+        var userConfirmed = window.confirm('Are you sure you want to delete?');
+
+        // Check if the user confirmed
+        if (userConfirmed) {
+            // If confirmed, you can navigate to the link's href
+            window.location.href = $(this).attr('href');
+        } else {
+            // If not confirmed, do nothing or handle as needed
+        }
+    });
+});
+
+function openNewWindow(event) {
+    event.preventDefault(); // Prevent the default behavior of the anchor tag
+
+    // Specify the URL and window features
+    var url = event.target.href;
+    var features = 'width=800,height=600,toolbar=no,location=no,menubar=no,status=no,scrollbars=yes,resizable=yes';
+
+    // Open the new window
+    newWindow = window.open(url, '_blank', features);
+    var checkInterval = setInterval(function () {
+        if (newWindow && newWindow.closed) {
+            clearInterval(checkInterval); // Stop checking
+            // Reload the parent window
+            window.location.reload();
+        }
+    }, 10);
+}
+</script>

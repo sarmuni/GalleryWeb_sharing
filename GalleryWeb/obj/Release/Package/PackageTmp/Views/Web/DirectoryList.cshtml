@@ -1,0 +1,84 @@
+﻿@model List<GalleryWeb.Models.DirName>
+
+<h2>Folder List</h2>
+<!-- Create a table with two columns -->
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-12">
+        <table id="myTable" class="display">
+            <colgroup>
+                <col style="width: 100px;">  Set the width of the first column 
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Last Updated</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>@Model[i].Name</td>
+                        <td>@Model[i].TsCrt</td>
+                        <td><a href="./Directory/@Model[i].Name/1">@Model[i].Name</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@{
+    var baseUrl = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+    //var folder = "/eGalery";
+    //baseUrl = baseUrl + folder;
+}
+
+<script>
+$(document).ready(function () {
+    $('#myTable').DataTable();
+
+    @*var table = $('#paginatedTable').DataTable({
+        "paging": true,
+        "searching": true,
+    });
+
+    // Function to fetch and populate data from the API
+    function fetchData(page) {
+        $.ajax({
+            url: '@baseUrl/Web/json_directorylist/' + page + '/10', // Replace with your API URL
+            method: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                // Assuming your API returns data as an array of objects
+                var data = response.data; // Adjust according to your API response structure
+
+                // Clear existing data in the table
+                table.clear().draw();
+
+                // Populate the DataTable with the fetched data
+                table.rows.add(data).draw();
+
+                // Update pagination information (if needed)
+                table.page(response.page).draw('page');
+            },
+            error: function (error) {
+                console.error('Error fetching data from the API:', error);
+            }
+        });
+    }
+
+    // Initial data fetch (you can fetch data for the first page here)
+    fetchData(1);
+
+    // Event handler for pagination clicks
+    $('#paginatedTable').on('page.dt', function () {
+        var pageInfo = table.page.info();
+        fetchData(pageInfo.page + 1); // Fetch data for the clicked page
+    });*@
+
+});
+</script>

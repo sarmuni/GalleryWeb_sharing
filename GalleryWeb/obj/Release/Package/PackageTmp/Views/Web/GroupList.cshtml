@@ -1,0 +1,87 @@
+﻿
+
+@model List<GalleryWeb.Models.Group>
+
+<!-- HTML markup to display the data -->
+@*<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+    @foreach (var group in Model)
+    {
+        <tr>
+            <td>@group.GroupID</td>
+            <td>@group.GroupName</td>
+        </tr>
+    }
+</table>*@
+
+<h2>Group List</h2>
+<!-- Create a table with two columns -->
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-12">
+        <a href="@Url.Content("~/Web/AddGroupList")" class="btn btn-primary" onclick="openNewWindow(event)"><i class="fas fa-user-plus"></i> Add Group</a>
+        <br />
+        <br />
+        <table id="myTable" class="display">
+            <colgroup>
+                <col style="width: 100px;"> <!-- Set the width of the first column -->
+                <!-- Add more col elements for other columns as needed -->
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Group Name</th>
+                    <th>Gallery Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                @*<tr>
+                    <td>1</td>
+                    <td><a href="https://ikserang.app.co.id/home/">ikserang.co.id</a></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><a href="https://iksmill.app.co.id/">iksmill.app.co.id</a></td>
+                </tr>*@
+                <!-- Add more rows as needed -->
+                @foreach (var group in Model)
+                {
+                    <tr>
+                        <td>@group.GroupID</td>
+                        <td>@group.GroupName</td>
+                        <td><a href="./Gallery/@group.GroupID/1">@group.GroupName</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+        
+
+
+<script>
+$(document).ready(function () {
+    $('#myTable').DataTable();
+    $('#nav-grouplist').addClass('active');
+});
+
+function openNewWindow(event) {
+    event.preventDefault(); // Prevent the default behavior of the anchor tag
+
+    // Specify the URL and window features
+    var url = event.target.href;
+    var features = 'width=800,height=600,toolbar=no,location=no,menubar=no,status=no,scrollbars=yes,resizable=yes';
+
+    // Open the new window
+    newWindow = window.open(url, '_blank', features);
+    var checkInterval = setInterval(function () {
+        if (newWindow && newWindow.closed) {
+            clearInterval(checkInterval); // Stop checking
+            // Reload the parent window
+            window.location.reload();
+        }
+    }, 10);
+}
+</script>

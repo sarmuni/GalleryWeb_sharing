@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+<!-- Create a table with two columns -->
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-12">
+        <table id="myTable" class="display">
+            <colgroup>
+                <col style="width: 45px;"> <!-- Set the width of the first column -->
+                <!-- Add more col elements for other columns as needed -->
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Gallery Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><a href="https://ikserang.app.co.id/home/">ikserang.co.id</a></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><a href="https://iksmill.app.co.id/">iksmill.app.co.id</a></td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+</div>
+        
+
+
+<script>
+$(document).ready(function () {
+    $('#myTable').DataTable();
+});
+</script>

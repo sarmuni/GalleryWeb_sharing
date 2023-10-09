@@ -1,0 +1,65 @@
+﻿<!-- Login.cshtml -->
+@model GalleryWeb.Models.LoginPageModel
+@{
+    ViewBag.Title = "Login2";
+}
+
+<div class="login-box" style="margin: auto; padding-top: 8rem;">
+    <div class="text-center">
+        <img src="~/Content/img/iks-logo.png" alt="iks Logo" class="mx-auto" style="max-width: 100%;" />
+    </div>
+    
+    <div class="login-logo">       
+        <a href="../../index2.html"><b>Web</b>Gallery</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+            @using (Html.BeginForm("Login", "Auth", FormMethod.Post))
+            {
+                <div class="input-group mb-3">
+                    <input type="text" id="Username" name="Username" class="form-control" placeholder="Global ID">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="Password" id="Password" name="Password" class="form-control" placeholder="Password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-block">Log In</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            }
+            <!-- /.social-auth-links -->
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+</div>
+<!-- /.login-box -->
+<!-- jQuery -->
+@*<script src="../../plugins/jquery/jquery.min.js"></script>*@
+<!-- Bootstrap 4 -->
+@*<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>*@
+<script>
+    $(document).ready(function () {
+        $("#navbarTop").hide();
+        $("#bodyContent").addClass("text-center");
+        $(".main-sidebar").hide();
+        $(".main-header").hide();
+        $('.content-wrapper').css('margin-left', '0');
+    });
+</script>
+<!-- AdminLTE App -->
+<script src="~/Content/adminlte/dist/js/adminlte.min.js"></script>

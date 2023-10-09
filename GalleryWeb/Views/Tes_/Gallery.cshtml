@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewBag.Title = "Gallery";
+}
+
+<h2>Gallery</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <a href="#" data-toggle="modal" data-target="#fullscreenModal">
+                <img src="https://ikserang.app.co.id/home/App_Themes/Theme-IK-01/Images/back-img.jpg" alt="Image 1" class="img-fluid" style="max-width:100%;" >
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="#" data-toggle="modal" data-target="#imageModal1">
+                <img src="https://ikserang.app.co.id/home/App_Themes/Theme-IK-01/Images/back-img.jpg" alt="Image 2" class="img-fluid" style="max-width:100%;" >
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="#" data-toggle="modal" data-target="#imageModal3">
+                <img src="https://ikserang.app.co.id/home/App_Themes/Theme-IK-01/Images/back-img.jpg" alt="Image 3" class="img-fluid" style="max-width:100%;" >
+            </a>
+        </div>
+        <!-- Add more thumbnails as needed -->
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+            <a href="#" data-toggle="modal" data-target="#fullscreenModal">
+                <img src="https://ikserang.app.co.id/home/App_Themes/Theme-IK-01/Images/back-img.jpg" alt="Image 1" class="img-fluid" style="max-width:100%;">
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="#" data-toggle="modal" data-target="#imageModal1">
+                <img src="https://ikserang.app.co.id/home/App_Themes/Theme-IK-01/Images/back-img.jpg" alt="Image 2" class="img-fluid" style="max-width:100%;">
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="#" data-toggle="modal" data-target="#imageModal3">
+                <img src="https://ikserang.app.co.id/home/App_Themes/Theme-IK-01/Images/back-img.jpg" alt="Image 3" class="img-fluid" style="max-width:100%;">
+            </a>
+        </div>
+        <!-- Add more thumbnails as needed -->
+    </div>
+</div>
+
+
+<!-- Image Modal 1 -->
+<div class="modal fade" id="imageModal1" tabindex="-1" role="dialog" aria-labelledby="imageModal1Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="margin-left: 2em;">
+        <div class="modal-content" style="width: 90em;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModal1Label">Image 1</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="text-center mx-auto">Centered Content
+                    <br />
+                        <img src="https://ikserang.app.co.id/home/App_Themes/Theme-IK-01/Images/back-img.jpg" style="max-width:100%;" alt="Image 1" class="img-fluid">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                @*<button type="button" class="btn btn-primary">Save changes</button>*@
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade fullscreen-modal" id="fullscreenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content" style="width:1000px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Fullscreen Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Your modal content goes here -->
+                <img src="https://ikserang.app.co.id/home/App_Themes/Theme-IK-01/Images/back-img.jpg" alt="Image 1" class="img-fluid">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Image Modal 2 -->
+<div class="modal fade" id="imageModal2" tabindex="-1" role="dialog" aria-labelledby="imageModal2Label" aria-hidden="true">
+    <!-- Repeat the same modal structure for other images -->
+</div>
+
+<!-- Image Modal 3 -->
+<div class="modal fade" id="imageModal3" tabindex="-1" role="dialog" aria-labelledby="imageModal3Label" aria-hidden="true">
+    <!-- Repeat the same modal structure for other images -->
+</div>

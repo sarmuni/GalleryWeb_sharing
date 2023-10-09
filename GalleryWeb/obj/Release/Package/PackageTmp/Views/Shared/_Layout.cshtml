@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+@{
+    var baseUrl = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+    var folder = "/eGalery";
+    baseUrl = baseUrl + folder;
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IK Serang | Web Gallery</title>
+    <link rel="icon" type="image/x-icon" href="@Url.Content("~/")Content/img/sinarmas-favicon.ico">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Add jQuery (required for Bootstrap JavaScript components) -->
+    <script src="~/Content/adminlte/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Ekko Lightbox -->
+    <script src="~/Content/adminlte/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+
+    <!-- Add Bootstrap CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <!-- Add Bootstrap JavaScript -->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!-- Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <!-- Select2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <!-- Add Bootstrap JavaScript -->
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <!-- Your other head content here -->
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Content/adminlte/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="~/Content/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="~/Content/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="~/Content/adminlte/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Content/adminlte/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/Content/adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="~/Content/adminlte/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/Content/adminlte/plugins/summernote/summernote-bs4.min.css">
+    @*@Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")*@
+
+    <!-- Custom CSS for the fullscreen modal -->
+    <style>
+        /* Override Bootstrap modal styles to make it fullscreen */
+        .modal.fullscreen {
+            width: 100%;
+            height: 100%;
+            margin-left: 5px;
+            margin-top: 5px;
+        }
+
+        .modal-dialog.fullscreen {
+            margin-left: 5px;
+            margin-top: 5px;
+            max-width: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .modal-content.fullscreen {
+            height: 100%;
+            border: 0;
+            border-radius: 0;
+        }
+    </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed" style="padding: 0px;">
+    <div class="wrapper">
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="~/Content/img/sinarmas-logo.png" alt="Loader Logo" height="60" width="60">
+        </div>
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="@Url.Content("~/")Web/DirectoryList" class="nav-link">Folder</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="@Url.Content("~/")Web/GroupList" class="nav-link">Group List</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="@Url.Content("~/")Web/GroupMember" class="nav-link">Group Member</a>
+                </li>
+            </ul>
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Notifications Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="fas fa-user-circle"></i> @HttpContext.Current.Session["UserID"]
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <div class="dropdown-divider"></div>
+                        <a href="@Url.Content("~/")Auth/Logout" class="dropdown-item">
+                            <i class="fas fa-sign-out-alt" mr-2"></i> Logout
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="@Url.Content("~/")Web/DirectoryList" class="brand-link">
+                <img src="~/Content/img/sinarmas-logo.png" class="brand-image img-square elevation-3" alt="Sinarmas Logo">
+                <span class="brand-text font-weight-light">Indah Kiat Serang Mill</span>
+            </a>
+            <a href="@Url.Content("~/")Web/DirectoryList" class="brand-link">
+                <img src="~/Content/img/gallery.png" class="brand-image img-square elevation-3" alt="Gallery Logo">
+                <span class="brand-text font-weight-light">Web Gallery</span>
+            </a>
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                             with font-awesome or any other icon font library -->
+                        <li class="nav-item">
+                            <a href="@Url.Content("~/")Web/DirectoryList" class="nav-link">
+                                <i class="nav-icon fas fa-folder-open"></i></i>
+                                <p>
+                                    Folder
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Content("~/")Web/GroupList" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i></i>
+                                <p>
+                                    Group List
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Content("~/")Web/GroupMember" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i></i>
+                                <p>
+                                    Group Member
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+               
+            </div>
+            <!-- /.content-header -->
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <footer class="main-footer">
+            <strong><i class="fas fa-copyright"></i> 2023 | IT IK Serang</strong>
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> 1.0.0
+            </div>
+        </footer>
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+    <!-- jQuery -->
+    @*<script src="~/Content/adminlte/plugins/jquery/jquery.min.js"></script>*@
+
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/Content/adminlte/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+  $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="~/Content/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ChartJS -->
+    <script src="~/Content/adminlte/plugins/chart.js/Chart.min.js"></script>
+    <!-- Sparkline -->
+    <script src="~/Content/adminlte/plugins/sparklines/sparkline.js"></script>
+    <!-- JQVMap -->
+    <script src="~/Content/adminlte/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="~/Content/adminlte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="~/Content/adminlte/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <!-- daterangepicker -->
+    <script src="~/Content/adminlte/plugins/moment/moment.min.js"></script>
+    <script src="~/Content/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="~/Content/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <script src="~/Content/adminlte/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="~/Content/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Content/adminlte/dist/js/adminlte.js"></script>
+</body>
+</html>
